@@ -6,6 +6,9 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.python3
+    pkgs.python312
+    pkgs.python312Packages.django_5
+    pkgs.python312Packages.pip
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -21,10 +24,10 @@
         create-venv = ''
           python -m venv .venv
           source .venv/bin/activate
-          pip install -r mysite/requirements.txt
+          pip install -r nexus_api/requirements.txt
         '';
         # Open editors for the following files by default, if they exist:
-        default.openFiles = ["README.md" "mysite/mysite/urls.py"];
+        default.openFiles = ["README.md" "nexus_api/urls.py"];
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
     };
