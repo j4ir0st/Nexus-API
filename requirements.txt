@@ -14,3 +14,5 @@ Pillow
 django-filter
 python-decouple
 gunicorn
+whitenoise
+python-json-logger
