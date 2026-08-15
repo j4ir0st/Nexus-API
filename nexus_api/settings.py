@@ -1,4 +1,5 @@
 
+import os
 from pathlib import Path
 from decouple import config
 
@@ -198,3 +199,8 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+# In Vercel, the filesystem is read-only, so we can't write to a log file.
+# We check for the VERCEL environment variable and remove the 'file' handler if it's present.
+if 'VERCEL' in os.environ:
+    LOGGING['root']['handlers'].remove('file')
