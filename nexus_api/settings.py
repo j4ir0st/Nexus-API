@@ -16,13 +16,24 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-# The vercel-build command will automatically set the VERCEL_URL environment variable.
-# We add that to our ALLOWED_HOSTS for production. For local development,
-# we can add our local hosts.
-ALLOWED_HOSTS = config('VERCEL_URL', default='127.0.0.1,localhost,9000-firebase-nexus-api-1780763948303.cluster-lqzyk3r5hzdcaqv6zwm7wv6pwa.cloudworkstations.dev').split(',')
+# We make the ALLOWED_HOSTS setting more robust for Vercel.
+# We explicitly allow the Vercel domain and the specific project domain.
+# For local development, we keep the local hosts.
+if DEBUG:
+    ALLOWED_HOSTS = [
+        '127.0.0.1',
+        'localhost',
+        '9000-firebase-nexus-api-1780763948303.cluster-lqzyk3r5hzdcaqv6zwm7wv6pwa.cloudworkstations.dev',
+    ]
+else:
+    ALLOWED_HOSTS = ['.vercel.app', 'project-5yyxt.vercel.app']
 
 
-CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://9000-firebase-nexus-api-1780763948303.cluster-lqzyk3r5hzdcaqv6zwm7wv6pwa.cloudworkstations.dev']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://9000-firebase-nexus-api-1780763948303.cluster-lqzyk3r5hzdcaqv6zwm7wv6pwa.cloudworkstations.dev',
+    'https://project-5yyxt.vercel.app',
+]
 
 
 # Application definition
