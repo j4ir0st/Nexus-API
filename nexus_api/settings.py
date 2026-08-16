@@ -100,10 +100,10 @@ DATABASES = {
 }
 
 # For production databases on platforms like Vercel and Supabase, SSL is required.
-# if not DEBUG:
-#     DATABASES['default']['OPTIONS'] = {
-#         'sslmode': 'require'
-#     }
+if not DEBUG:
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'require'
+    }
 
 
 # Password validation
@@ -171,8 +171,8 @@ USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SAMESITE = 'None'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
