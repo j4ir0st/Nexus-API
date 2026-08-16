@@ -99,6 +99,12 @@ DATABASES = {
     }
 }
 
+# For production databases on platforms like Vercel and Supabase, SSL is required.
+# if not DEBUG:
+#     DATABASES['default']['OPTIONS'] = {
+#         'sslmode': 'require'
+#     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -186,7 +192,6 @@ LOGGING = {
     'formatters': {
         'json': {
             '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
-            # Es vital incluir estos campos para la correlación automática en Grafana
             'format': '%(asctime)s %(levelname)s %(name)s %(message)s %(otelTraceID)s %(otelSpanID)s',
         },
         'estandar': {
@@ -210,7 +215,8 @@ LOGGING = {
     },
 }
 
-# In Vercel, the filesystem is read-only, so we can't write to a log file.
-# We check for the VERCEL environment variable and remove the 'file' handler if it's present.
-if 'VERCEL' in os.environ:
+# In Vercel, the filesystem is read-only. We must remove the file handler.
+# We check for the VERCEL environment variable, which is set to '1' by Vercel.
+if os.environ.get('VERCEL') == '1':
     LOGGING['root']['handlers'].remove('file')
+    del LOGGING['handlers']['file']
