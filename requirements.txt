@@ -16,3 +16,4 @@ python-decouple
 gunicorn
 whitenoise
 python-json-logger
+django-redis
