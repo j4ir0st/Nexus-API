@@ -1,4 +1,6 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.admin.models import LogEntry
+from django.contrib import admin
 from django.db import models
 
 class ExtendedUsers(AbstractUser):
@@ -18,3 +20,11 @@ class ExtendedUsers(AbstractUser):
     seguro = models.CharField(max_length=60, null=True, blank=True)
     persona_contacto = models.CharField(max_length=120, null=True, blank=True)
     telefono_contacto = models.CharField(max_length=60, null=True, blank=True)
+
+
+class CustomLogEntry(LogEntry):
+    class Meta:
+        proxy = True
+        verbose_name = "Registro de Actividad"
+        verbose_name_plural = "Registros de Actividad"
+
