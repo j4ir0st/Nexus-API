@@ -1,12 +1,25 @@
 from rest_framework import permissions, viewsets, filters, views
 from django.db.models import Value, CharField, IntegerField
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 import django_filters.rest_framework as df
+from rest_framework.views import APIView
 from rest_framework import status
 from django.conf import settings
 from .serializers import *
 from .filters import *
 from .models import *
+
+
+class AccountsAPIRootView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        return Response({
+            'users': reverse('accounts:extendedusers-list', request=request, format=format),
+        })
+
 
 # Create your views here.
 class ExtendedUsersViewSet(viewsets.ModelViewSet):
