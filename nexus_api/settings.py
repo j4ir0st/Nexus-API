@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'facturacion',
     'fernando',
+    'jacs',
     'django_filters',
     'rest_framework_simplejwt',
 
